@@ -1,0 +1,30 @@
+.filtres{
+    
+    margin-top:51px;
+    margin-bottom: 51px;
+    display:flex;
+    justify-content: center;
+    gap:10px;
+
+}
+.filtres a{
+    color:#1D6154;
+    border:#1D6154 solid 1px;
+    border-radius: 60px;;
+    text-decoration: inherit;
+    padding:10px 30px 10px 30px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Syne';
+}
+.filtres a:hover{
+    background-color: #1D6154;
+    color:#ffffff;
+}
+body{
+    background-color: #E5E5E5;
+}
+figcaption{
+    margin-top: 7px;
+}
+

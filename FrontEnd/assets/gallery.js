@@ -1,3 +1,6 @@
+import { boutonFiltreObjet } from "./travaux.js";
+
+
 //Ici, on créer le JS pour l'affichage dynamique de la gallery dans la page web au lieu de l'écrire dans le Html
 const gallery=document.querySelector(".gallery");
 for(let i=0;i<10;i++){
@@ -13,3 +16,6 @@ const boutonTous=document.querySelector("#tous");
 boutonTous.addEventListener("click",function(){
     //gallery.innerHTML=""; //Efface toute la partie gallery
 })
+
+//Ajout de la fonction de l'event bouton objet importé de travaux.js :
+boutonFiltreObjet();

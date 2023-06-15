@@ -16,6 +16,14 @@ email: sophie.bluel@test.tld
 password: S0phie 
 ```
 Lien pour voir la
-[documentation Swagger](http://localhost:5678/api-docs/)
+[documentation Swagger](http://localhost:5678/api-docs/) !! 1-Ouvrir l'editeur swagger sur le navigateur internet, puis 2- CTRL+cliuer sur adresse localhost pour afficher la documentation swagger!!!
 
 Pour lire la documentation, utiliser Chrome ou Firefox
+
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!! Faire la ligne de commande dans le dossier Backend pour appeler l'API
+!!!!!Et attention au localhost:5678/api/ ne pas oublier api dans l'adresse (voir documentation swagger) !!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

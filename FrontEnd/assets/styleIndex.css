@@ -1,3 +1,12 @@
+header a{
+    text-decoration: none;
+    color:black;
+}
+a:hover{
+    color:#b1663c;
+    text-decoration: #b1663c;
+}
+
 .filtres{
     
     margin-top:51px;
@@ -7,7 +16,7 @@
     gap:10px;
 
 }
-.filtres a{
+.filtres article{
     color:#1D6154;
     border:#1D6154 solid 1px;
     border-radius: 60px;;
@@ -17,7 +26,7 @@
     font-weight: 700;
     font-family: 'Syne';
 }
-.filtres a:hover{
+.filtres article:hover{
     background-color: #1D6154;
     color:#ffffff;
 }

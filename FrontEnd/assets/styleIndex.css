@@ -1,6 +1,15 @@
+body{
+    max-width:1440px;
+}
+header{
+    margin-left:150px;
+    margin-right:150px;
+}
+
 header a{
     text-decoration: none;
     color:black;
+   
 }
 a:hover{
     color:#b1663c;
@@ -16,7 +25,7 @@ a:hover{
     gap:10px;
 
 }
-.filtres article{
+.filtres button{
     color:#1D6154;
     border:#1D6154 solid 1px;
     border-radius: 60px;;
@@ -26,9 +35,23 @@ a:hover{
     font-weight: 700;
     font-family: 'Syne';
 }
-.filtres article:hover{
+.filtres button:hover{
     background-color: #1D6154;
     color:#ffffff;
+}
+#introduction, #portfolio{
+    margin-left:245px;
+    margin-right:245px;
+    
+}
+#introduction img{
+    margin-left:0;
+}
+#contact{
+    width:33%;
+    margin-left:500px;
+    margin-right:530px;
+   
 }
 body{
     background-color: #E5E5E5;
@@ -37,3 +60,80 @@ figcaption{
     margin-top: 7px;
 }
 
+/**********************************************************/
+/***********************************************************/
+/****************Mode edition********************************/
+.editor{
+    display:none;
+}
+
+.baner{
+    width:100%;
+    height:59px;
+    background-color: #000000;
+    justify-content: center;
+    align-items: center;
+    gap:21px;
+    border: 1px solid black
+}
+.baner h2{
+    color:#ffffff;
+    font-size:16px;
+    font-weight:400;
+}
+.baner a{
+    width:216px;
+    height:38px;
+    background-color: #ffffff;
+    border-radius: 60px;
+    text-decoration: inherit;
+    color:#000000;
+    font-size:14px;
+    font-weight: 500;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.baner img{
+    width:30px;
+    height:30px;
+}
+/******************************/
+.intro{
+   
+    width:20%;
+
+    align-items: center;
+   
+}
+.intro #iconModifier{
+    width:30px;
+    height:30px;
+  
+}
+.intro p{
+    margin-top:7px;
+}
+
+
+/**************************************/
+.portfol{
+   
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+ 
+}
+.Portfol img{
+   margin-left:22rem;
+    padding-left:30px;
+    margin-top: -22px;;
+    width:30px;
+    height:30px;
+
+}
+.Portfol p{
+    margin-top:-12px;
+}

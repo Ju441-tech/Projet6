@@ -2,7 +2,7 @@
 
 
 //Demande à l'API de fournir la liste des travaux (requête GET envoyée à l'API):
-async function getWorks() {
+export async function getWorks() {
     const reponse = await fetch(`http://localhost:5678/api/works`);
     //Conversion de la réponse de l'API, en format JSON, grâce à la fonction.json() afin de pouvoir utiliser la liste reçue des travaux :
     const works = await reponse.json();
@@ -82,3 +82,4 @@ function genererGallerieAcceuil(listeTravaux) {
     genererBoutonsFiltres();
     genererGallerieAcceuil(works);
 })()
+

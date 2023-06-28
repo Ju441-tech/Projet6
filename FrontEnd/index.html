@@ -16,21 +16,57 @@
 </head>
 
 <body>
-	<div class="editor baner">
-		<img  src="assets/icons/modifierWhite.ico" alt="">
-		<h2 >Mode édition</h2>
-		<a  href="">Publier les Changements</a>
+	<div class="modale">
+		<div class="modale-wrapp">
+			<div class="content">
+				<span class="close">&times;</span>
+				<h2>Galerie photo</h2>
+				<div class="galleri"></div>
+				<div id="modale-trait"></div>
+				<button class="ajouterPhoto">Ajouter une photo</button>
+				<a href="">Supprimer la galerie</a>
+			</div>
+		</div>
+		<div class="modale-loading">
+			<div class="content">
+				<div class="nav-modale-loading">
+					<img class="arrow-left" src="./assets/icons/arrow-left.svg" alt="arrow-left">
+					<span class="close">&times;</span>
+				</div>
+				<h2>Ajout photo</h2>
+				<form>
+					<div class="loading-file">
+						<img src="assets/icons/loadingFile.svg" alt="">
+						<button class="button-file">+ Ajouter photo</button>
+						<input type="file" id="file">
+						<p>jpg, png : 4mo max</p>
+					</div>
+					<label>Titre</label>
+					<input type="text" id="txt">
+					<label>Catégorie</label>
+					<select id="select">
+					</select>
+				</form>
+				<div id="line"></div>
+				<button type="submit" class="button">Valider</button>
+			</div>
+		</div>
+
 	</div>
-	</h2>
+	<div class="admin baner">
+		<img src="assets/icons/modifierWhite.ico" alt="icone modifier">
+		<h2>Mode édition</h2>
+		<p class="ouvre-modale">publier les changements</p>
 	</div>
 	<header>
 		<h1>Sophie Bluel <span>ARCHITECTE D'INTERIEUR</span></h1>
-		
+
 		<nav>
 			<ul>
 				<li>projets</li>
 				<li>contact</li>
-				<li><a href="login.html">login</a></li>
+				<li><a class="login" href="login.html">login</a></li>
+				<li><a class="admin logout" href="index.html">logout</a></li>
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
 		</nav>
@@ -39,7 +75,7 @@
 		<section id="introduction">
 			<figure>
 				<img src="./assets/images/sophie-bluel.png" alt="">
-				<div class="editor intro">
+				<div class="admin intro ouvre-modale">
 					<img id="iconModifier" src="assets/icons/modifier.svg" alt="">
 					<p>modifier</p>
 				</div>
@@ -56,12 +92,12 @@
 			</article>
 		</section>
 		<section id="portfolio">
-				
-				<h2>Mes Projets</h2>
-				<div class="editor Portfol">
-					<img id="iconModifier" src="assets/icons/modifier.svg" alt="">
-					<p>modifier</p>
-				</div>
+
+			<h2>Mes Projets</h2>
+			<div class="admin portfol ouvre-modale">
+				<img id="iconModifier" src="assets/icons/modifier.svg" alt="">
+				<p>modifier</p>
+			</div>
 			<section class="filtres">
 
 			</section>

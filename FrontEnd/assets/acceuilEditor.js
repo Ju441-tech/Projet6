@@ -38,20 +38,16 @@ function fermeModalePrincipale() {
         modaleWrapp.style.display = "none";
         modale.style.position = "relative";
     })
-    // if(modaleWrapp.style.display="flex"){
-     //   console.log("ok");
-    //const elements=document.querySelectorAll("*");
-    //console.log(elements);
-    //elements.forEach((element)=>{
-    //if(element!=modaleWrapp){
-     //   console.log("ok");
-    //element.addEventListener("click",function(){
-    //modaleWrapp.style.display="none";
-    //modale.style.position="relative";  
+    //document.addEventListener("click",function(event){
+        //si on clique à l'extérieur de la modale
+        //console.log(event.target);
+        //if(event.target.matches(".close")||
+        //!event.target.closest(".close")){
+            //modaleWrapp.style.display="none";
+            //modale.style.position="relative";
+
+        //}
     //})
-    // }
-    //})
-//}
     }
 
 

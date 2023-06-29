@@ -33,22 +33,19 @@ function fermeModalePrincipale() {
     const modaleWrapp = document.querySelector(".modale-wrapp");
     const croix = document.querySelector(".modale-wrapp .close");
 
-    croix.addEventListener("click", function (event) {
-        console.log(event.currentTarget.innerText);
+    document.addEventListener("click", function (event) {
+        console.log(event.target.matches);
+        
+    if(event.target===modale||event.target===croix){
+        console.log(croix);
         modaleWrapp.style.display = "none";
         modale.style.position = "relative";
-    })
-    //document.addEventListener("click",function(event){
-        //si on clique à l'extérieur de la modale
-        //console.log(event.target);
-        //if(event.target.matches(".close")||
-        //!event.target.closest(".close")){
-            //modaleWrapp.style.display="none";
-            //modale.style.position="relative";
-
-        //}
-    //})
     }
+        });
+   
+}
+
+
 
 
 
@@ -80,10 +77,12 @@ function fermerModaleAjoutProjet() {
     const modaleLoading = document.querySelector(".modale-loading");
     const modaleWrapp = document.querySelector(".modale-wrapp");
     const croix = document.querySelector(".modale-loading .close");
-    croix.addEventListener("click", function () {
+    document.addEventListener("click", function (event) {
+        if(event.target===croix||event.target===modale){
         modaleLoading.style.display = "none";
         modaleWrapp.style.position = "flex";
         modale.style.position = "relative";
+        }
     })
 }
 

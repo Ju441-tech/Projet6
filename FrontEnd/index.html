@@ -16,47 +16,12 @@
 </head>
 
 <body>
-	<div class="modale">
-		<div class="modale-wrapp">
-			<div class="content">
-				<span class="close">&times;</span>
-				<h2>Galerie photo</h2>
-				<div class="galleri"></div>
-				<div id="modale-trait"></div>
-				<button class="ajouterPhoto">Ajouter une photo</button>
-				<a href="">Supprimer la galerie</a>
-			</div>
+	<div class="admin">
+		<div class="baner">
+			<img src="assets/icons/modifierWhite.ico" alt="icone modifier">
+			<h2>Mode édition</h2>
+			<a href="#">publier les changements</a>
 		</div>
-		<div class="modale-loading">
-			<div class="content">
-				<div class="nav-modale-loading">
-					<img class="arrow-left" src="./assets/icons/arrow-left.svg" alt="arrow-left">
-					<span class="close">&times;</span>
-				</div>
-				<h2>Ajout photo</h2>
-				<form>
-					<div class="loading-file">
-						<img src="assets/icons/loadingFile.svg" alt="">
-						<button class="button-file">+ Ajouter photo</button>
-						<input type="file" id="file">
-						<p>jpg, png : 4mo max</p>
-					</div>
-					<label>Titre</label>
-					<input type="text" id="txt">
-					<label>Catégorie</label>
-					<select id="select">
-					</select>
-				</form>
-				<div id="line"></div>
-				<button type="submit" class="button">Valider</button>
-			</div>
-		</div>
-
-	</div>
-	<div class="admin baner">
-		<img src="assets/icons/modifierWhite.ico" alt="icone modifier">
-		<h2>Mode édition</h2>
-		<p class="ouvre-modale">publier les changements</p>
 	</div>
 	<header>
 		<h1>Sophie Bluel <span>ARCHITECTE D'INTERIEUR</span></h1>
@@ -66,7 +31,9 @@
 				<li>projets</li>
 				<li>contact</li>
 				<li><a class="login" href="login.html">login</a></li>
-				<li><a class="admin logout" href="index.html">logout</a></li>
+				<div class="admin">
+					<li><a class="logout" href="index.html">logout</a></li>
+				</div>
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
 		</nav>
@@ -74,35 +41,92 @@
 	<main>
 		<section id="introduction">
 			<figure>
-				<img src="./assets/images/sophie-bluel.png" alt="">
-				<div class="admin intro ouvre-modale">
-					<img id="iconModifier" src="assets/icons/modifier.svg" alt="">
-					<p>modifier</p>
+				<img id="photoPortrait" src="./assets/images/sophie-bluel.png" alt="">
+				<div class="admin">
+					<div class="intro">
+						<img class="iconeModifier" src="assets/icons/modifier.svg" alt="">
+						<a href="#">modifier</a>
+					</div>
 				</div>
 			</figure>
+
 			<article class="presentation">
 				<h2>Designer d'espace</h2>
 				<p>Je raconte votre histoire, je valorise vos idées. Je vous<br> accompagne de la conception à la
 					livraison finale du<br>chantier.</p>
-				<p>Chaque projet sera étudié en commun, de façon à mettre<br>en valeur les volumes, les matières et les
-					couleurs dans le<br>respect de l’esprit des lieux et le choix adapté des<br> matériaux. Le suivi du
+				<p>Chaque projet sera étudié en commun, de façon à mettre<br>en valeur les volumes, les matières et
+					les
+					couleurs dans le<br>respect de l’esprit des lieux et le choix adapté des<br> matériaux. Le suivi
+					du
 					chantier sera assuré dans le souci<br>du détail, le respect du planning et du budget.</p>
 				<p>En cas de besoin, une équipe pluridisciplinaire peut-être<br>constituée : architecte DPLG,
 					décorateur(trice).</p>
 			</article>
 		</section>
 		<section id="portfolio">
+			<div class="centrer-modif-portfolio">
+				<h2>Mes Projets</h2>
+				<div class="admin">
+					<div class="portfolio">
+						<img class="iconeModifier" src="assets/icons/modifier.svg" alt="">
+						<a href="#modal-wrapp" class="js-modal-wrapp">modifier</a>
+						<!------------------------------------------------------modal-wrapp------------------------------------>
+						<aside id="modal-wrapp" class="hidde">
+							<div class="modal-wrapp-content">
 
-			<h2>Mes Projets</h2>
-			<div class="admin portfol ouvre-modale">
-				<img id="iconModifier" src="assets/icons/modifier.svg" alt="">
-				<p>modifier</p>
+
+								<span id="close-modal">&times;</span>
+								<h2>Galerie photo</h2>
+								<div class="gallery-modal" id="gallery-modal">
+
+								</div>
+
+								<div class="line"></div>
+								<button type="button" href="#modal-loading" id="buttonAjouterPhoto">Ajouter une
+									photo</button>
+								<button type="button" id="buttonSupprimerGallerie">Supprimer la galerie</button>
+
+
+							</div>
+						</aside>
+						<!------------------------------------------modal-loading----------------------------------------------->
+						<aside id="modal-loading" class="hidde">
+							<div class="modal-loading-content">
+								<div class="nav-modal-loading">
+									<img id="arrow-left-modal-loading" src="./assets/icons/arrow-left.svg">
+									<span id="close-modal-loading">&times;</span>
+								</div>
+								<h2>Ajout photo</h2>
+								<div class="loading-module">
+									<img src="./assets/icons/loadingFile.svg">
+									<form>
+										<input type="file">
+										<button type="button">+ Ajouter photo</button>
+									</form>
+									<p>jpg, png : 4mo max</p>
+
+								</div>
+								<form action="#" method="post">
+									<label for="title">Titre</label>
+									<input type="text" name="title" id="title">
+									<label for="select">Catégories</label>
+									<select name="select">
+										<option>Tous</option>
+									</select>
+								</form>
+								<div id="line-loading"></div>
+								<button type="button" id="button-valider-modal-loading">Valider</button>
+							</div>
+						</aside>
+						<!------------------------------------------------------fin Modals------------------------------------>
+					</div>
+				</div>
 			</div>
 			<section class="filtres">
 
 			</section>
-			<div class="gallery">
-				<!--code affichage galery en javascript dynamique éléments des travaux venants de l'API-->
+			<div id="gallery-acceuil" class="gallery">
+				<!--code affichage gallery en javascript dynamique éléments des travaux venants de l'API-->
 			</div>
 		</section>
 		<section id="contact">

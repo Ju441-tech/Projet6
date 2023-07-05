@@ -12,79 +12,80 @@ if (localStorage.getItem("token")) {//Si localstorage a un élémént appelé "t
     const login = document.querySelector(".login");//l'élémnent se connecter qui est à côté des liens Projets et Contact disparait en mettant none à sa propriété display
     login.style.display = "none";//
 }
+/**deconnection de la session */
+function disconnect(){
+    localStorage.clear()
+    window.open("index.html")
+}
+const logout=document.querySelector(".logout")
+logout.addEventListener("click",disconnect)
+/********************* */
 
 
-function ouvreModalePrincipale() {
-    const modale = document.querySelector(".modale");
+const openModalWrapp=function (){ 
+    
+    modalWrapp.removeAttribute("class","hidde")
+    modalWrapp.setAttribute("class","modal-wrapp")
+    ouvreModalWrapp.removeEventListener("click",openModalWrapp)
+    modalWrapp.addEventListener("click",closeModalWrapp)
 
-    const modaleWrapp = document.querySelector(".modale-wrapp");
-    const ouvreModale = document.querySelectorAll(".ouvre-modale");
-    for (let ouvreMod of ouvreModale) {
-        ouvreMod.addEventListener("click", function () {
-            modale.style.position = "fixed";//On met la propriété position=fixed pour que la modale prennent tout l'écran, qu'elle puisse apparaitre et qu'on puisse ccentre la modale-wrapp via un flex
-            modaleWrapp.style.display = "flex";// par défaut display:none donc la modale-wrapp apparait
-        })
+    const buttonAjouterPhoto=document.querySelector("#buttonAjouterPhoto")
+    buttonAjouterPhoto.addEventListener("click",openModalLoading)
+}
+
+const closeModalWrapp=function (event){  
+    const buttonCloseModalWrapp=document.querySelector("#close-modal")
+    const parent=event.target.closest(".modal-wrapp-content")
+    if (!parent||event.target===buttonCloseModalWrapp){
+        modalWrapp.removeAttribute("class","modal-wrapp")
+        modalWrapp.setAttribute("class","hidde")
+        modalWrapp.removeEventListener("click",closeModalWrapp)
+    }
+    ouvreModalWrapp.addEventListener("click",openModalWrapp) //A ne pas oublier !! Car lorsque toutes les modales sont fermées, il faut un eventlistener pour écouter si on clique pour ouvrir la première modale 
+}
+
+function openModalLoading(){
+    modalWrapp.removeAttribute("class","modal-wrapp")
+        modalWrapp.setAttribute("class","hidde")
+        buttonAjouterPhoto.removeEventListener("click",openModalLoading)
+        const modalLoading=document.querySelector("#modal-loading")
+        modalLoading.removeAttribute("class","hidde")
+        modalLoading.setAttribute("class", "modal-loading")
+        modalLoading.addEventListener("click",returnModalWrapp)
+        modalLoading.addEventListener("click", closeModalLoading)
+}
+function returnModalWrapp(event){
+    const fleche=document.querySelector("#arrow-left-modal-loading")
+    const modalLoading=document.querySelector("#modal-loading")
+    if(event.target===fleche){
+    modalLoading.removeEventListener("click",returnModalWrapp)
+    modalLoading.removeAttribute("class","modal-loading")
+    modalLoading.setAttribute("class", "hidde")
+    openModalWrapp()
     }
 }
-
-
-function fermeModalePrincipale() {
-    const modale = document.querySelector(".modale");
-    const modaleWrapp = document.querySelector(".modale-wrapp");
-    const croix = document.querySelector(".modale-wrapp .close");
-
-    document.addEventListener("click", function (event) {
-        console.log(event.target.matches);
-        
-    if(event.target===modale||event.target===croix){
-        console.log(croix);
-        modaleWrapp.style.display = "none";
-        modale.style.position = "relative";
+function closeModalLoading(event){
+    const modalLoading=document.querySelector("#modal-loading")
+    const croix=document.querySelector("#close-modal-loading")
+    const parent=event.target.closest(".modal-loading-content")
+    if(!parent||event.target===croix){
+    modalLoading.removeEventListener("click",closeModalLoading)
+        modalLoading.removeAttribute("class","modal-loading")
+        modalLoading.setAttribute("class", "hidde")
     }
-        });
-   
+    ouvreModalWrapp.addEventListener("click",openModalWrapp)//!!!!!!!pour pouvoir rouvrir modalWrapp lorsqu'aucune modale n'est ouverte
 }
 
 
 
 
+const modalWrapp=document.querySelector("#modal-wrapp")
+
+const ouvreModalWrapp=document.querySelector(".js-modal-wrapp")
+ouvreModalWrapp.addEventListener("click",openModalWrapp)
 
 
-function OuvreModaleAjoutProjet() {
-    const modale = document.querySelector(".modale");
-    const ajoutPhoto = document.querySelector(".ajouterPhoto");
-    const modaleLoading = document.querySelector(".modale-loading");
-    const modaleWrapp = document.querySelector(".modale-wrapp");
-    ajoutPhoto.addEventListener("click", function () {
-        modaleWrapp.style.display = "none";
-        modaleLoading.style.display = "flex";
-        modale.style.position = "fixed";
-    })
-}
 
-function retourModalePrincipale() {
-    const modaleWrapp = document.querySelector(".modale-wrapp");
-    const modaleLoading = document.querySelector(".modale-loading");
-    const fleche = document.querySelector(".arrow-left");
-    fleche.addEventListener("click", function () {
-        modaleLoading.style.display = "none";
-        modaleWrapp.style.display = "flex";
-    })
-}
-
-function fermerModaleAjoutProjet() {
-    const modale = document.querySelector(".modale");
-    const modaleLoading = document.querySelector(".modale-loading");
-    const modaleWrapp = document.querySelector(".modale-wrapp");
-    const croix = document.querySelector(".modale-loading .close");
-    document.addEventListener("click", function (event) {
-        if(event.target===croix||event.target===modale){
-        modaleLoading.style.display = "none";
-        modaleWrapp.style.position = "flex";
-        modale.style.position = "relative";
-        }
-    })
-}
 
 
 
@@ -117,8 +118,18 @@ function genererGallerieAcceuil(listeTravaux) {
         image.setAttribute("class", "photo");
         imageBin.src = "./assets/icons/bin.svg";
         imageBin.setAttribute("class", "bin");
+        imageBin.setAttribute("data-id", work.id)//Création d'un data-id sur chaque corbeille pour pouvoir identifier précisément quel projet a été cliqué
         imageCroixFleche.setAttribute("class", "croix-fleche");
         imageCroixFleche.src = "./assets/icons/croix-fleche.svg";
+
+        //Si on click sur la corbeille, on obtient son data-id qui correspondra  à l'index de la liste de la fonction getWorks()
+        imageBin.addEventListener("click", function (event) {
+            console.log(event.target.dataset.id)
+            //console.log(listeTravaux)
+            const projetASupprimer=JSON.stringify(event.target.dataset.id-1)//On a récupérer toutes les données du projet sélectionné
+            console.log(projetASupprimer)
+            
+        })
 
     }
 }
@@ -128,10 +139,25 @@ function genererGallerieAcceuil(listeTravaux) {
 
 (async function main() {
     const listeTravaux = await getWorks();
-    await genererGallerieAcceuil(listeTravaux);
-    ouvreModalePrincipale();
-    fermeModalePrincipale();
-    OuvreModaleAjoutProjet();
-    retourModalePrincipale();
-    fermerModaleAjoutProjet();
+   
+   
+
+  
+   
+  
+
+
 })();
+
+async function suppressionProjet() {
+    
+   
+    ////Envoi de la requête à l'adresse de l'api puis, après la virgule les données de la requête tout ceci dans la constante réponse qui elle même recevra la réponse de l'api
+    const reponse = await fetch("http://localhost:5678/api/works/0",{method:`DELETE`});
+    const resultat = await reponse.json();//On transforme la réponse en format json()
+}
+
+/////Il faut l'autorisation pour supprimer un projet
+
+
+

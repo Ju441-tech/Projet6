@@ -168,6 +168,7 @@ figcaption {
 .modal-wrapp-content{
     background-color: #ffffff;
     width:630px;
+    max-height: 100%;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -182,6 +183,7 @@ figcaption {
     cursor:pointer;
     
 }
+/*************gestion gallerie photo modalWrapp*************/
 .modal-wrapp-content h2 {
     margin-top: 10px;
     margin-bottom: 45px;
@@ -190,13 +192,40 @@ figcaption {
     font-weight: 400;
     font-family: "Work sans";
 }
-.modal-wrapp-content .gallery-modal {
-	width: 100%;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
-	grid-row-gap: 20px;
+#gallery-modal{
+    margin-left:20%;
+    margin-right: 20%;
+    
+	display:flex;
+    
+    flex-wrap: wrap;
+    gap:10px;
+
 }
+#gallery-modal article{
+position:relative;
+}
+
+#gallery-modal .iconBin{
+    position:absolute;
+    top:5px;
+    right:5px;
+    background-color: #000000;
+    width:10px;
+    height:10px;
+    padding:5px;
+    border-radius: 3px;;
+}
+#gallery-modal img{
+  
+    width:79px;
+    height:104px;
+  
+}
+#gallery-modal p{
+    height:20px;
+}
+/*************************************/
 .modal-wrapp-content .line{
     width:420px;
     height:1px;
@@ -230,20 +259,7 @@ figcaption {
 }
 
 
-#gallery-modal{
-    display:flex;
-    flex-wrap:wrap;
-   height:400px;
-   margin-left: 50px;;
-}
-#gallery-modal img{
-    width:79px;
-    height:104px;
-  
-}
-#gallery-modal p{
-    height:20px;
-}
+
 /* /**********modal-loading**************** */
 .modal-loading{
     background-color:rgba(0,0,0,0.30);
@@ -312,7 +328,7 @@ figcaption {
     margin-bottom: 15px;
 }
 .loading-module input{
-    display:none;
+    color: transparent;
 }
 .loading-module button{
     margin-bottom:7px;

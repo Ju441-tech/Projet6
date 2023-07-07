@@ -100,8 +100,9 @@
 								<div class="loading-module">
 									<img src="./assets/icons/loadingFile.svg">
 									<form>
-										<input type="file">
-										<button type="button">+ Ajouter photo</button>
+										
+										<button type="button"><input type="file" id="inputFile">
+											+ Ajouter photo</button>
 									</form>
 									<p>jpg, png : 4mo max</p>
 
@@ -112,6 +113,9 @@
 									<label for="select">Catégories</label>
 									<select name="select">
 										<option>Tous</option>
+										<option>Objets</option>
+										<option>Appartements</option>
+										<option>Hotels & Restaurants</option>
 									</select>
 								</form>
 								<div id="line-loading"></div>
@@ -152,7 +156,7 @@
 		</nav>
 	</footer>
 	<script type="module" src="./assets/gallery.js"></script>
-	<script type="module" src="./assets/acceuilEditor.js"></script>
+	
 </body>
 
 </html>

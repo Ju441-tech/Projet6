@@ -1,5 +1,5 @@
 import { getWorks } from "./gallery.js";//On importe la liste des travaux capturé dans gallery.js
-
+import{genererGallerieAcceuil} from "./gallery.js"
 
 //essai: tentative de savoir si un token est bien présent et console.log pour vérif:
 
@@ -19,13 +19,15 @@ function disconnect(){
 }
 const logout=document.querySelector(".logout")
 logout.addEventListener("click",disconnect)
-/********************* */
+/*********Gestion modales************ */
 
 
-const openModalWrapp=function (){ 
-    
+ const openModalWrapp= async function (){ 
+    const works= await getWorks()
     modalWrapp.removeAttribute("class","hidde")
     modalWrapp.setAttribute("class","modal-wrapp")
+    console.log(works)
+    genererGallerieAcceuil(works,"modal")
     ouvreModalWrapp.removeEventListener("click",openModalWrapp)
     modalWrapp.addEventListener("click",closeModalWrapp)
 
@@ -89,7 +91,7 @@ ouvreModalWrapp.addEventListener("click",openModalWrapp)
 
 
 
-function genererGallerieAcceuil(listeTravaux) {
+function GallerieAcceuil(listeTravaux) {
     const galleri = document.querySelector(".galleri");
 
     //Boucle qui fait apparaitre les elements (image et titres) de chaque article dans la galerie  :

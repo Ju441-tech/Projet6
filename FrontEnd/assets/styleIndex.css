@@ -328,9 +328,15 @@ position:relative;
     margin-bottom: 15px;
 }
 .loading-module input{
-    color: transparent;
+    position:absolute;  
+    
+    opacity: 0;
+    width:173px;
+    height:36px;
+    border-radius:50px; 
 }
 .loading-module button{
+    
     margin-bottom:7px;
     width:173px;
     height:36px;

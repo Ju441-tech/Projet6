@@ -13,17 +13,26 @@ async function getCategory() {
     const reponse = await fetch(`http://localhost:5678/api/categories`);
     //Conversion de la réponse de l'API, en format JSON, grâce à la fonction.json() afin de pouvoir utiliser la liste reçue des travaux :    
     const categories = await reponse.json();
-    categories.unshift({ "id": "0", "name": "Tous" });//On ajoute au déburt de la liste la categorie 0, appelé "Tous"   
+    categories.unshift({ "id": 0, "name": "Tous" });//On ajoute au déburt de la liste la categorie 0, appelé "Tous"   
     return categories;
 }
 
+
+
 //Generer les boutons filtre dynamiquement :
 async function genererBoutonsFiltres() {
-    const filtres = document.querySelector(".filtres");
+    const filtres = document.querySelector(".filtres")
     for (let categorie of await getCategory()) {
         const boutonFiltre = document.createElement("button");
         filtres.appendChild(boutonFiltre)
         boutonFiltre.innerText = categorie.name;
+        //Generer la liste des categories dans le select de la modal qui ajoute un projet :
+        const CategoriesSelector = document.querySelector("#select-category-loading")
+        const selectOption = document.createElement("option")
+        CategoriesSelector.appendChild(selectOption)
+        selectOption.innerText = categorie.name
+        selectOption.setAttribute("value", categorie.id)//Ajoute un "value" pour pouvoir envoyer le numéro de la catégorie dans la requete POST, afin d'envoyer un nouveau projet
+
     }
     document.addEventListener("click", filter)//Les boutons deviennent fonctionnels lorsqu'on clique dessus, on filtre la liste des travaux complète d'origine
 }
@@ -44,7 +53,7 @@ async function filter(event) {
                 return list.category.name === event.target.innerText;//SI le nom de la catégorie de l'élément du tableau des travaux originaux ===le text du bouton, on ajoute l'élément à la newList
             })
         }
-        genererGallery(filterWorks,"gallery")//régénère la nouvelle gallerie filtrée
+        genererGallery(filterWorks, "gallery")//régénère la nouvelle gallerie filtrée
     }
 }
 
@@ -52,16 +61,16 @@ async function filter(event) {
 //Ici, on créer le JS pour l'affichage dynamique de la gallery dans la page web au lieu de l'écrire dans le Html
 //Création de la fonction qui créée une gallerie avec autant de fiches que dans la liste reçue, fiche, qui contient l'image et le titre d'un projet:
 
-async function genererGallery(listeTravaux,type = "gallery") {
+async function genererGallery(listeTravaux, type = "gallery") {
     const galleryAcceuil = document.querySelector(".gallery")
     const galleryModal = document.querySelector("#gallery-modal")
     //liste travaux pour modal : getWorks() n'est pas une liste classique c'est une liste JSON il faut donc la convertir quoique : faire un console.log
     //Boucle qui fait apparaitre les elements (image et titres) de chaque article dans la galerie  :
-  
+
 
     //A chaque tour de boucle, il se créer une balise article contenant une image et son titre de projet:
     if (type === "gallery") {
-        galleryAcceuil.innerHTML=""
+        galleryAcceuil.innerHTML = ""
         for (let work of listeTravaux) {
             const ficheTravaux = document.createElement("article");
             const image = document.createElement("img")
@@ -81,9 +90,8 @@ async function genererGallery(listeTravaux,type = "gallery") {
         }
     }
     if (type === "modal") {
-        galleryModal.innerHTML=""//Permet de ne pas rajouter des projets à chaque fois qu'on click et qu'on filtre des projets, le nombre de projets ne change pas, quoiqu'il arrive
+        galleryModal.innerHTML = ""//Permet de ne pas rajouter des projets à chaque fois qu'on click et qu'on filtre des projets, le nombre de projets ne change pas, quoiqu'il arrive
         const listWorks = await getWorks()
-        console.log(listWorks)
         for (let element of listWorks) {
             const ficheTravaux = document.createElement("article");
             const image = document.createElement("img")
@@ -99,9 +107,10 @@ async function genererGallery(listeTravaux,type = "gallery") {
             ficheTravaux.appendChild(image);
             ficheTravaux.appendChild(title);
 
-            iconBin.setAttribute("data-id",element.id)
+            iconBin.setAttribute("data-id", element.id)
             iconBin.src = "./assets/icons/bin.svg"
-            iconBin.setAttribute("class","iconBin")
+            iconBin.setAttribute("class", "iconBin")
+            iconBin.addEventListener("click", deleteWork)
             title.innerText = "éditer";
             image.src = element.imageUrl;
         }
@@ -139,7 +148,7 @@ const openModalWrapp = async function () {
     modalWrapp.setAttribute("class", "modal-wrapp")
     ouvreModalWrapp.removeEventListener("click", openModalWrapp)
     modalWrapp.addEventListener("click", closeModalWrapp)
-    genererGallery(works,"modal")
+    genererGallery(works, "modal")
     const buttonAjouterPhoto = document.querySelector("#buttonAjouterPhoto")
     buttonAjouterPhoto.addEventListener("click", openModalLoading)
 }
@@ -187,68 +196,99 @@ function closeModalLoading(event) {
     ouvreModalWrapp.addEventListener("click", openModalWrapp)//!!!!!!!pour pouvoir rouvrir modalWrapp lorsqu'aucune modale n'est ouverte
 }
 
-//Ouvrir la modal :
+//Ouvrir la modal depuis la page d'acceuil :
 const modalWrapp = document.querySelector("#modal-wrapp")
 const ouvreModalWrapp = document.querySelector(".js-modal-wrapp")
 ouvreModalWrapp.addEventListener("click", openModalWrapp)//Ouvre la modale
 
 
 //Récupération de quel élément à été cliqué pour suppression:
-const projetsASupprimer=document.querySelector("#gallery-modal")
-projetsASupprimer.addEventListener("click",deleteWork)
 
-async function deleteWork(event){
+
+const AjouterProjet = document.getElementById("button-valider-modal-loading")
+AjouterProjet.addEventListener("click", post)
+
+async function deleteWork(event) {
     console.log(event.target.dataset.id)//On obtient un nombre qui correspond au nuéro du projet. Attention:: Ca commence par 1 pas par 0
     event.preventDefault();
     event.stopPropagation();
     const iconeElement = event.target.dataset.id;
     let monToken = localStorage.getItem("token");
-    console.log(iconeElement);
     let response = await fetch(
-      `http://localhost:5678/api/works/${iconeElement}`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${monToken}`,
-        },
-      }
-     
-    );
-    const gallery= document.querySelector(".gallery")
-    const galleryModal=document.querySelector("#gallery-modal")
-    const works=await getWorks()
-    galleryModal.innerHTML=""
-    gallery.innerHTML=""
-    genererGallery(works,"gallery")
-    genererGallery(works,"modal")
-    if (response.ok) {
-      return false;
-      // if HTTP-status is 200-299
-      //alert("Photo supprimé avec succes");
-      // obtenir le corps de réponse (la méthode expliquée ci-dessous)
-    } else {
-      alert("Echec de suppression");
-    }
-   
-  }
+        `http://localhost:5678/api/works/${iconeElement}`,
+        {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${monToken}`,
+            },
+        }
 
-  //---------------FIN DE GENERER PHOTO--------------------
-//----------------AJOUT PROJET------------------------------
-//récupérer l'image par l'input file:
-async function post(){
-const ProjectData={
-    "image":"abajour-tahina.png",
-    "title":"abajour-tahina",
-    "category":"1"
+    );
+    const gallery = document.querySelector(".gallery")
+    const galleryModal = document.querySelector("#gallery-modal")
+    const works = await getWorks()
+    galleryModal.innerHTML = ""
+    gallery.innerHTML = ""
+    genererGallery(works, "gallery")
+    genererGallery(works, "modal")
+
+}
+
+//-------------------PREVISUALISATION-------------------------------
+//ecouteur evenements previsualisation image on écoute l'évènement :
+const entryInputFile=document.querySelector("#inputFile")
+
+entryInputFile.addEventListener("change",previsualisation)
+function previsualisation(){
+   
+    entryInputFile.innerHTML=""//Afin d'éviter que si l'utilisateur reclique pour charger une nouvelle photo, on réinitialise tout cequ'il y a dans l'inputFile
+   //Affiche l'image dans la modal-loading :
+   buttonDownloadFile.removeEventListener("click",previsualisation)
+   buttonDownloadFile.removeAttribute("z-index")
+   const img = document.getElementById("inputFile").files[0]
+   const urlImg = URL.createObjectURL(img)
+   const previsualisationImg = document.querySelector("#previsualisation-img")
+   previsualisationImg.removeAttribute("src")
+   previsualisationImg.setAttribute("src", urlImg)
    
 }
-let myToken = localStorage.getItem("token");
-console.log(myToken)
-let response = await fetch(
-    `http://localhost:5678/api/works/`,{method: "POST", headers: { authorization: `Bearer ${myToken}` } ,body: ProjectData});
-    if(response.ok){
-        console.log("ok")
-    }
+//----------------AJOUT PROJET------------------------------
+//récupérer l'image par l'input file:
+async function post() {
+    const img = document.getElementById("inputFile").files[0]
+    const urlImg = URL.createObjectURL(img)//Création d'un URL pour pouvoir le mettre dans le src, afin de le prévisualiser
+    //console.log(urlImg)//Affiche bien une url créée par la fonction createOjectURL(), que je ne connaissais pas
+    
+
+    //Création des données à envoyer à l'api sous forme de formdata :
+    const title = document.getElementById("title-loading").value
+    const category = document.getElementById("select-category-loading").value
+
+    const formData = new FormData()//pour créer une formdata, qui est obligatoire, lorsqu'on envoie un fichier (image,zip, fichier...)car ce ne sont pas des données directes comme du texte ou des numéros.
+
+    formData.append("image", img)
+    formData.append("title", title)
+    formData.append("category", category)
+    let myToken = localStorage.getItem("token");
+    let response = await fetch(
+        `http://localhost:5678/api/works`,
+        {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${myToken}`,
+                accept: "application/json",
+
+
+            },
+            body: formData
+
+        })
+    const works = await getWorks()
+    
+    
+    genererGallery(works, "modal")
+    genererGallery(works, "gallery")//On régénère les galleries
+
 }
 
 
@@ -259,7 +299,7 @@ let response = await fetch(
     const works = await getWorks();
     genererBoutonsFiltres();
     genererGallery(works, "gallery")
-    post()
+
 
 
 })()

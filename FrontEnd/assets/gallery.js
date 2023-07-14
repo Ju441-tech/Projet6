@@ -317,6 +317,13 @@ async function post() {
 
         title.value = ""
         category.value = ""
+
+        //Il faut effacer les données de l(input file (les photos)), sinon ,au prochain chargement, on ne pourra plus prévisualiser les photos
+        const img = document.getElementById("inputFile")
+       
+        img.value=""
+      
+        //effacer l(intérieur de inputFile)
         //Effacer image qui est en prévisualisation :
         const previsualisationImg = document.querySelector("#previsualisation-img")
 

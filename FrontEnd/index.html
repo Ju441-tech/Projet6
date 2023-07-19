@@ -28,12 +28,12 @@
 
 		<nav>
 			<ul>
-				<li href="#gallery-acceuil">projets</li>
-				<li href="#contact">contact</li>
+				<li><a href="#gallery-acceuil">projets</a></li>
+				<li><a href="#contact">contact</a></li>
 				<li><a class="login" href="login.html">login</a></li>
-				<div class="admin">
-					<li><a class="logout" href="index.html">logout</a></li>
-				</div>
+				<li class="admin">
+					<a class="logout" href="index.html">logout</a>
+				</li>
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
 		</nav>
@@ -82,9 +82,9 @@
 								</div>
 
 								<div class="line"></div>
-								<button type="button" href="#modal-loading" id="buttonAjouterPhoto">Ajouter une
-									photo</button>
-								<button type="button" id="buttonSupprimerGallerie">Supprimer la galerie</button>
+								<a  href="#modal-loading" id="buttonAjouterPhoto">Ajouter une
+									photo</a>
+								<a  id="buttonSupprimerGallerie">Supprimer la galerie</a>
 
 
 							</div>
@@ -93,12 +93,12 @@
 						<aside id="modal-loading" class="hidde">
 							<div class="modal-loading-content">
 								<div class="nav-modal-loading">
-									<img id="arrow-left-modal-loading" src="./assets/icons/arrow-left.svg">
+									<img id="arrow-left-modal-loading" src="./assets/icons/arrow-left.svg" alt="arrow-left">
 									<span id="close-modal-loading">&times;</span>
 								</div>
 								<h2>Ajout photo</h2>
 								<div class="loading-module">
-									<img id="previsualisation-img" src="./assets/icons/loadingFile.svg">
+									<img id="previsualisation-img" src="./assets/icons/loadingFile.svg" alt="previsualisation">
 									<form>
 										<input type="file" id="inputFile">
 										<button id="buttonDownloadFile" type="button">
@@ -108,9 +108,9 @@
 
 								</div>
 								<form action="#" method="post">
-									<label for="title">Titre</label>
+									<label for="title-loading">Titre</label>
 									<input type="text" name="title" id="title-loading">
-									<label for="select">Catégories</label>
+									<label for="select-category-loading">Catégories</label>
 									<select name="select" id="select-category-loading">
 
 									</select>
@@ -123,7 +123,7 @@
 					</div>
 				</div>
 			</div>
-			<section  class="filtres">
+			<section class="filtres">
 
 			</section>
 			<div id="gallery-acceuil" class="gallery">
@@ -152,7 +152,7 @@
 			</ul>
 		</nav>
 	</footer>
-	<script type="text/javascript" src="./assets/gallery.js"></script>
+	<script src="./assets/gallery.js"></script>
 
 </body>
 
